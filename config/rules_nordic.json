@@ -1,0 +1,86 @@
+{
+  "_comment": "Nordic rules. VIP customers checked first, then standard rules in priority order.",
+
+  "vip_customers": [
+    {"customer": "LEGO",        "country": "Denmark", "min_amount": 0,   "max_amount": 9999999, "handlers": [], "output_team": "CHC Global", "output_rid": "#N/A"},
+    {"customer": "Bestseller",  "country": "Denmark", "min_amount": 0,   "max_amount": 9999999, "handlers": ["Karolina Rygorowicz"], "alt_handlers": []},
+    {"customer": "Dancover",    "country": "Denmark", "min_amount": 0,   "max_amount": 9999999, "handlers": ["Karolina Rygorowicz"], "alt_handlers": []},
+    {"customer": "IKEA",        "country": "Sweden",  "min_amount": 200, "max_amount": 9999999, "handlers": ["Weronika Kruszewska"], "alt_handlers": []},
+    {"customer": "IKEA",        "country": "Sweden",  "min_amount": 0,   "max_amount": 200,     "handlers": ["Arianne Dimalanta"],   "alt_handlers": []},
+    {"customer": "Forbo",       "country": "Sweden",  "min_amount": 200, "max_amount": 9999999, "handlers": ["Weronika Kruszewska"], "alt_handlers": []},
+    {"customer": "Forbo",       "country": "Sweden",  "min_amount": 0,   "max_amount": 200,     "handlers": ["Arianne Dimalanta"],   "alt_handlers": []},
+    {"customer": "Ahlsell",     "country": "Sweden",  "min_amount": 200, "max_amount": 9999999, "handlers": ["Weronika Kruszewska"], "alt_handlers": []},
+    {"customer": "Jeld-Wen",    "country": "Sweden",  "min_amount": 200, "max_amount": 9999999, "handlers": ["Weronika Kruszewska"], "alt_handlers": []},
+    {"customer": "ICA SVERIGE", "country": "Sweden",  "min_amount": 200, "max_amount": 9999999, "handlers": ["Weronika Kruszewska"], "alt_handlers": []},
+    {"customer": "Spendrups",   "country": "Sweden",  "min_amount": 200, "max_amount": 9999999, "handlers": ["Weronika Kruszewska"], "alt_handlers": []},
+    {"customer": "Coop",        "country": "Sweden",  "min_amount": 0,   "max_amount": 9999999, "handlers": ["Weronika Kruszewska"], "alt_handlers": []},
+    {"customer": "ABB ROBOTICS","country": null,      "min_amount": 0,   "max_amount": 9999999, "handlers": ["Weronika Kruszewska"], "alt_handlers": []},
+    {"customer": "Postnord",    "country": "Sweden",  "min_amount": 200, "max_amount": 9999999, "handlers": ["Amelia Falk"],         "alt_handlers": []},
+    {"customer": "Power",       "country": "Sweden",  "min_amount": 200, "max_amount": 9999999, "handlers": ["Amelia Falk"],         "alt_handlers": []}
+  ],
+
+  "rules": [
+    {
+      "description": "Low Value <200 (DK,EE,LT,LV,NO,FI)",
+      "countries": ["Denmark","Estonia","Lithuania","Latvia","Norway","Finland"],
+      "divisions": [],
+      "max_amount": 200,
+      "handlers": ["Angelic Arellano"], "alt_handlers": []
+    },
+    {
+      "description": "SE Low Value <200",
+      "countries": ["Sweden"],
+      "divisions": [],
+      "max_amount": 200,
+      "handlers": ["Arianne Dimalanta"], "alt_handlers": []
+    },
+    {
+      "description": "Fast Track 200-500 (DK,EE,LT,LV,NO,FI)",
+      "countries": ["Denmark","Estonia","Lithuania","Latvia","Norway","Finland"],
+      "divisions": [],
+      "min_amount": 200, "max_amount": 500,
+      "handlers": ["Razvan Poenaru"], "alt_handlers": [],
+      "output_team": "CHC Bucharest"
+    },
+    {
+      "description": "DK Road >500",
+      "countries": ["Denmark"], "divisions": ["Road"],
+      "min_amount": 500,
+      "handlers": ["Robert Kaczmarczyk", "Jakub Kowalski", "Karolina Rygorowicz"], "alt_handlers": []
+    },
+    {
+      "description": "SE Manco >=200",
+      "countries": ["Sweden"], "divisions": [],
+      "sub_types": ["Total Missing", "Partial Missing"],
+      "min_amount": 200,
+      "handlers": ["Michał Sztorc", "Tomasz Wasil", "Amelia Falk"], "alt_handlers": []
+    },
+    {
+      "description": "SE Damage >=200",
+      "countries": ["Sweden"], "divisions": [],
+      "sub_types": ["Damage", "Water Damage", "Hidden Damage", "Temperature Damage", "Contamination"],
+      "min_amount": 200,
+      "handlers": ["Weronika Kruszewska", "Amelia Falk", "Tomasz Wasil", "Michał Sztorc"], "alt_handlers": []
+    },
+    {
+      "description": "DK Solutions",
+      "countries": ["Denmark"], "divisions": ["Contract Logistics"],
+      "handlers": ["Karolina Rygorowicz", "Jakub Kowalski"], "alt_handlers": []
+    },
+    {
+      "description": "Norway standard",
+      "countries": ["Norway"], "divisions": [],
+      "handlers": ["Amelia Falk"], "alt_handlers": []
+    },
+    {
+      "description": "EE/LT/LV standard",
+      "countries": ["Estonia", "Lithuania", "Latvia"], "divisions": [],
+      "handlers": ["Weronika Kruszewska"], "alt_handlers": ["Jakub Kowalski"]
+    },
+    {
+      "description": "Finland Road+CL",
+      "countries": ["Finland"], "divisions": ["Road", "Contract Logistics"],
+      "handlers": ["Karolina Rygorowicz"], "alt_handlers": []
+    }
+  ]
+}
