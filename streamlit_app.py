@@ -1,7 +1,3 @@
-Claim Engine v4.1 — Stateless Edition (Optimized Load Balancing)
-Zasady w plikach JSON (config/). Analiza całego pliku przed przydzieleniem.
-"""
-
 import streamlit as st
 import pandas as pd
 import json
