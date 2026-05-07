@@ -1,6 +1,5 @@
-"""
-Claim Engine v4 — Stateless Edition
-Zasady w plikach JSON (config/). Zero bazy danych. Zero Turso.
+Claim Engine v4.1 — Stateless Edition (Optimized Load Balancing)
+Zasady w plikach JSON (config/). Analiza całego pliku przed przydzieleniem.
 """
 
 import streamlit as st
@@ -49,7 +48,7 @@ def norm_div(div: str) -> str:
 def norm_name(name: str) -> str:
     tbl = str.maketrans("ąćęłńóśźżĄĆĘŁŃÓŚŹŻ", "acelnoszaAcelnOSZZ")
     r = str(name).translate(tbl)
-    return re.sub(r"[\s\-\.\,\_]", "", r).lower()
+    return re.sub(r"[\\s\\-\\.\\,\\_]", "", r).lower()
 
 def safe_float(v) -> float:
     try:
@@ -121,7 +120,7 @@ def check_schenker(shipment, country, division, dol, schenker_cfg):
         if div_match:
             if e.get("legacy"):
                 return ("Claims Schenker Legacy", "#N/A", f"Schenker Legacy override: {country} {division}")
-            return None  # scalony — przetwarzamy normalnie
+            return None
 
     return ("Claims Schenker Legacy", "#N/A", f"Schenker Legacy: {country}/{division} poza listą")
 
@@ -149,10 +148,10 @@ def rule_matches(rule, country, division, sub_type, claimant, amount):
     return True
 
 # ═══════════════════════════════════════════════════════════════════════════════
-# GLOBAL ASSIGNMENT
+# GET CANDIDATES (Strategic Allocation)
 # ═══════════════════════════════════════════════════════════════════════════════
 
-def assign_global(row, cfg, schenker_cfg, counter, by_name):
+def get_candidates_global(row, cfg, schenker_cfg):
     shipment  = str(row.get("Shipment number", "")).strip()
     country   = str(row.get("DSV Country (Lookup)", "")).strip()
     division  = norm_div(str(row.get("DSV Division (Lookup)", "")).strip())
@@ -161,48 +160,31 @@ def assign_global(row, cfg, schenker_cfg, counter, by_name):
     dol       = _parse_dol(row.get("Date of Loss"))
     amount    = _eff_amount(row)
 
-    # 1 ─ Schenker
     sr = check_schenker(shipment, country, division, dol, schenker_cfg)
-    if sr:
-        return None, sr[0], sr[1], sr[2]
+    if sr: return [], [], sr[0], sr[1], sr[2]
 
-    # 2 ─ Special customers (Abbott, Adidas…)
     for sc in cfg["special_customers"]:
         if norm_name(sc["customer"]) in norm_name(claimant):
-            name, rid, team = pick(sc["handlers"], sc.get("alt_handlers", []), counter, by_name)
-            return (name, team or "CHC Global", rid or "", f"Special: {sc['customer']}")
+            return sc["handlers"], sc.get("alt_handlers", []), "CHC Global", "", f"Special: {sc['customer']}"
 
-    # 3 ─ XPress division
     if division == "XPress":
-        name, rid, team = pick(cfg["xpress_handlers"], cfg.get("xpress_alt_handlers", []), counter, by_name)
-        return (name, team or "CHC Global", rid or "", "XPress")
+        return cfg["xpress_handlers"], cfg.get("xpress_alt_handlers", []), "CHC Global", "", "XPress"
 
-    # 4 ─ Low Value (amount > 0, < threshold, excluded sub-types bypass this)
     ft_excl = cfg["fast_track_exclusions"]
     sub_excluded = any(exc.lower() in sub_type.lower() for exc in ft_excl)
-
     if amount > 0 and amount < cfg["low_value_max"] and not sub_excluded:
-        return (None, "CHC Low Value", "", f"Low Value: {amount:.0f} EUR")
+        return [], [], "CHC Low Value", "", f"Low Value: {amount:.0f} EUR"
 
-    # 5 ─ Fast Track (200–500 EUR, excluded sub-types bypass this)
     if (amount >= cfg["fast_track_min"] and amount <= cfg["fast_track_max"] and not sub_excluded):
-        return (None, "CHC Bucharest", "", f"Fast Track: {amount:.0f} EUR")
+        return [], [], "CHC Bucharest", "", f"Fast Track: {amount:.0f} EUR"
 
-    # 6 ─ Standard rules
     for rule in cfg["rules"]:
-        if not rule_matches(rule, country, division, sub_type, claimant, amount):
-            continue
-        name, rid, team = pick(rule["handlers"], rule.get("alt_handlers", []), counter, by_name)
-        label = f"Rule: {rule['description']}"
-        return (name, team or "CHC Global", rid or "", label)
+        if not rule_matches(rule, country, division, sub_type, claimant, amount): continue
+        return rule["handlers"], rule.get("alt_handlers", []), "CHC Global", "", f"Rule: {rule['description']}"
 
-    return (None, "", "#N/A", "Brak pasującej reguły")
+    return [], [], "", "#N/A", "Brak pasującej reguły"
 
-# ═══════════════════════════════════════════════════════════════════════════════
-# NORDIC ASSIGNMENT
-# ═══════════════════════════════════════════════════════════════════════════════
-
-def assign_nordic(row, cfg, schenker_cfg, counter, by_name):
+def get_candidates_nordic(row, cfg, schenker_cfg):
     shipment  = str(row.get("Shipment number", "")).strip()
     country   = str(row.get("DSV Country (Lookup)", "")).strip()
     division  = norm_div(str(row.get("DSV Division (Lookup)", "")).strip())
@@ -211,39 +193,22 @@ def assign_nordic(row, cfg, schenker_cfg, counter, by_name):
     dol       = _parse_dol(row.get("Date of Loss"))
     amount    = _eff_amount(row)
 
-    # 1 ─ Schenker
     sr = check_schenker(shipment, country, division, dol, schenker_cfg)
-    if sr:
-        return None, sr[0], sr[1], sr[2]
+    if sr: return [], [], sr[0], sr[1], sr[2]
 
-    # 2 ─ VIP customers
     for vip in cfg["vip_customers"]:
-        if norm_name(vip["customer"]) not in norm_name(claimant):
-            continue
-        if vip.get("country") and vip["country"].lower() != country.lower():
-            continue
-        mn = vip.get("min_amount", 0)
-        mx = vip.get("max_amount", 9999999)
-        if not (mn <= amount < mx):
-            continue
-        # Team override (e.g. LEGO → CHC Global)
-        if vip.get("output_team"):
-            return (None, vip["output_team"], vip.get("output_rid", "#N/A"), f"VIP: {vip['customer']}")
-        name, rid, team = pick(vip["handlers"], vip.get("alt_handlers", []), counter, by_name)
-        return (name, team or "CHC Nordic", rid or "", f"VIP: {vip['customer']}")
+        if norm_name(vip["customer"]) not in norm_name(claimant): continue
+        if vip.get("country") and vip["country"].lower() != country.lower(): continue
+        if not (vip.get("min_amount", 0) <= amount < vip.get("max_amount", 9999999)): continue
+        if vip.get("output_team"): return [], [], vip["output_team"], vip.get("output_rid", "#N/A"), f"VIP: {vip['customer']}"
+        return vip["handlers"], vip.get("alt_handlers", []), "CHC Nordic", "", f"VIP: {vip['customer']}"
 
-    # 3 ─ Standard rules
     for rule in cfg["rules"]:
-        if not rule_matches(rule, country, division, sub_type, claimant, amount):
-            continue
-        if rule.get("output_team"):
-            name, rid, team = pick(rule["handlers"], rule.get("alt_handlers", []), counter, by_name)
-            out_team = rule["output_team"] if not name else (team or rule["output_team"])
-            return (name, out_team, rid or "", f"Rule: {rule['description']}")
-        name, rid, team = pick(rule["handlers"], rule.get("alt_handlers", []), counter, by_name)
-        return (name, team or "CHC Nordic", rid or "", f"Rule: {rule['description']}")
+        if not rule_matches(rule, country, division, sub_type, claimant, amount): continue
+        team = rule.get("output_team", "CHC Nordic")
+        return rule["handlers"], rule.get("alt_handlers", []), team, "", f"Rule: {rule['description']}"
 
-    return (None, "", "#N/A", "Brak pasującej reguły")
+    return [], [], "", "#N/A", "Brak pasującej reguły"
 
 # ═══════════════════════════════════════════════════════════════════════════════
 # HELPERS
@@ -258,28 +223,24 @@ def _parse_dol(v):
     if isinstance(v, (int, float)):
         try:    return pd.to_datetime("1899-12-30") + timedelta(days=float(v))
         except: return None
-    return v  # already datetime
+    return v
 
 def _eff_amount(row) -> float:
     ca = safe_float(row.get("Claim amount EUR", 0))
     tl = safe_float(row.get("Total liability EUR", 0))
-    if ca > 0 and tl > 0:
-        return min(ca, tl)
+    if ca > 0 and tl > 0: return min(ca, tl)
     return max(ca, tl)
 
 def build_output(row, handler_name, team_name, rid, reason):
     r = row.copy().astype(object)
     if "Claim: Claim Number" in r.index:
         r = r.rename({"Claim: Claim Number": "Claim Import ID"})
-
     dol = _parse_dol(row.get("Date of Loss"))
     if dol is not None:
         try:
             r["Date of Loss"] = dol.strftime("%d.%m.%Y")
             r["Timebar date liable party"] = (dol + timedelta(days=365)).strftime("%d.%m.%Y")
-        except Exception:
-            pass
-
+        except: pass
     r["Assigned Name"]     = rid if rid else ""
     r["Claim Handler"]     = handler_name or ""
     r["Team Name"]         = team_name or ""
@@ -287,9 +248,7 @@ def build_output(row, handler_name, team_name, rid, reason):
     r["Internal Status"]   = "Awaiting own process"
     r["Recovery Status"]   = "Awaiting own process"
     r["Initial assignment"]= datetime.now().strftime("%d.%m.%Y")
-
-    if str(row.get("Status", "")).strip().lower() == "new":
-        r["Status"] = "Assigned"
+    if str(row.get("Status", "")).strip().lower() == "new": r["Status"] = "Assigned"
     return r
 
 def reorder_columns(df):
@@ -299,22 +258,44 @@ def reorder_columns(df):
         if c in cols: cols.remove(c)
     insert_at = cols.index("Claimant Name") + 1 if "Claimant Name" in cols else len(cols)
     for i, c in enumerate(output_cols):
-        if c in df.columns:
-            cols.insert(insert_at + i, c)
-    for tail in ("Timebar date liable party",):
-        if tail in cols:
-            cols.remove(tail); cols.append(tail)
+        if c in df.columns: cols.insert(insert_at + i, c)
+    if "Timebar date liable party" in cols:
+        cols.remove("Timebar date liable party"); cols.append("Timebar date liable party")
     return df[[c for c in cols if c in df.columns]]
+
+# ═══════════════════════════════════════════════════════════════════════════════
+# MAIN PROCESSING LOGIC
+# ═══════════════════════════════════════════════════════════════════════════════
 
 def process_df(df, team, cfg, schenker_cfg, by_name):
     counter = Counter()
+    assign_fn = get_candidates_global if team == "Global" else get_candidates_nordic
+    
+    evaluated = []
+    for idx, row in df.iterrows():
+        prim, alt, out_team, fixed_rid, reason = assign_fn(row, cfg, schenker_cfg)
+        available = [n for n in prim if present(n) and n in by_name]
+        pool_size = len(available) if available else 999
+        evaluated.append({
+            "idx": idx, "row": row, "prim": prim, "alt": alt, 
+            "out_team": out_team, "fixed_rid": fixed_rid, 
+            "reason": reason, "pool_size": pool_size
+        })
+    
+    # Sort: process rows with FEWEST available handlers first to optimize balancing
+    evaluated.sort(key=lambda x: x["pool_size"])
+    
     results = []
-    assign_fn = assign_global if team == "Global" else assign_nordic
-    for _, row in df.iterrows():
-        name, tname, rid, reason = assign_fn(row, cfg, schenker_cfg, counter, by_name)
-        results.append(build_output(row, name, tname, rid, reason))
-    result_df = reorder_columns(pd.DataFrame(results))
-    return result_df, dict(counter)
+    for item in evaluated:
+        name, rid, tname = pick(item["prim"], item["alt"], counter, by_name)
+        final_team = tname if tname else item["out_team"]
+        final_rid  = rid if rid else item["fixed_rid"]
+        res_row = build_output(item["row"], name, final_team, final_rid, item["reason"])
+        res_row["_sort_idx"] = item["idx"]
+        results.append(res_row)
+        
+    final_df = pd.DataFrame(results).sort_values("_sort_idx").drop(columns=["_sort_idx"])
+    return reorder_columns(final_df), dict(counter)
 
 # ═══════════════════════════════════════════════════════════════════════════════
 # STREAMLIT UI
@@ -324,26 +305,21 @@ def main():
     try:
         handlers, rules_global, rules_nordic, schenker = load_config()
     except Exception as e:
-        st.error(f"❌ Błąd ładowania konfiguracji: {e}")
+        st.error(f"❌ Błąd konfiguracji: {e}")
         st.stop()
 
     by_name = {h["name"]: h for h in handlers}
     init_attendance(handlers)
 
-    # ── Sidebar ──────────────────────────────────────────────────────────────
     with st.sidebar:
         st.title("🎯 Claim Engine")
-        st.caption("v4.0 — Stateless Edition")
+        st.caption("v4.1 — Smart Load Balancing")
         st.divider()
-
-        team = st.radio("**Team**", ["Global", "Nordic"], horizontal=True,
-                        key="team_select")
-
+        team = st.radio("**Team**", ["Global", "Nordic"], horizontal=True)
         st.divider()
         st.subheader("👥 Attendance")
         team_label = "CHC Nordic" if team == "Nordic" else "CHC Global"
         team_handlers = [h for h in handlers if h["team"] == team_label]
-
         cols_att = st.columns(2)
         for i, h in enumerate(team_handlers):
             short = h["name"].split()[0]
@@ -352,158 +328,45 @@ def main():
             st.session_state["attendance"][h["name"]] = new_val
 
     cfg = rules_global if team == "Global" else rules_nordic
-
-    # ── Tabs ─────────────────────────────────────────────────────────────────
     tab_process, tab_rules = st.tabs(["🚀 Process Claims", "📋 Zasady"])
 
-    # ── PROCESS ──────────────────────────────────────────────────────────────
     with tab_process:
-        st.header(f"🚀 Process Claims — CHC {team}")
-
-        uploaded = st.file_uploader("Wgraj Excel (.xlsx)", type=["xlsx"], key="uploader")
+        uploaded = st.file_uploader("Wgraj Excel (.xlsx)", type=["xlsx"])
         if uploaded:
-            try:
-                df = pd.read_excel(uploaded, engine="openpyxl")
-            except Exception as e:
-                st.error(f"Błąd odczytu pliku: {e}")
-                st.stop()
-
+            df = pd.read_excel(uploaded, engine="openpyxl")
             if "Date of Loss" in df.columns:
-                df["Date of Loss"] = pd.to_datetime(
-                    df["Date of Loss"], errors="coerce", dayfirst=True)
-
+                df["Date of Loss"] = pd.to_datetime(df["Date of Loss"], errors="coerce", dayfirst=True)
             st.info(f"Załadowano **{len(df)}** claimów")
-            with st.expander("Podgląd (pierwsze 5 wierszy)"):
-                st.dataframe(df.head(5), use_container_width=True)
-
-            if st.button("🚀 **START PROCESSING**", type="primary",
-                         use_container_width=True, key="btn_process"):
-                with st.spinner("Przetwarzam…"):
+            if st.button("🚀 **START PROCESSING**", type="primary", use_container_width=True):
+                with st.spinner("Przetwarzam strategicznie..."):
                     result_df, stats = process_df(df, team, cfg, schenker, by_name)
                     st.session_state["result_df"] = result_df
                     st.session_state["stats"] = stats
-                    st.session_state["result_team"] = team
 
         if "result_df" in st.session_state:
             result_df = st.session_state["result_df"]
-            stats     = st.session_state.get("stats", {})
-            res_team  = st.session_state.get("result_team", team)
-
-            an = result_df.get("Assigned Name", pd.Series(dtype=str))
-            assigned   = (an.notna() & (an != "") & (an != "#N/A")).sum()
-            team_only  = (an == "").sum()
-            unmatched  = (an == "#N/A").sum()
-
+            stats = st.session_state.get("stats", {})
+            
             c1, c2, c3, c4 = st.columns(4)
-            c1.metric("Łącznie",      len(result_df))
-            c2.metric("Przypisane",   int(assigned))
-            c3.metric("Tylko Team",   int(team_only),
-                      help="Reguły kwotowe (Low Value / Fast Track) — Team przypisany, handler pusty")
-            c4.metric("Nieprzypisane",int(unmatched))
+            an = result_df.get("Assigned Name", pd.Series(dtype=str))
+            c1.metric("Łącznie", len(result_df))
+            c2.metric("Przypisane", int((an.notna() & (an != "") & (an != "#N/A")).sum()))
+            c3.metric("Tylko Team", int((an == "").sum()))
+            c4.metric("Nieprzypisane", int((an == "#N/A").sum()))
 
             if stats:
                 st.subheader("Rozkład przypisań")
-                rows = sorted([{"Handler": n, "Claimy": c}
-                                for n, c in stats.items()], key=lambda x: -x["Claimy"])
+                rows = sorted([{"Handler": n, "Claimy": c} for n, c in stats.items()], key=lambda x: -x["Claimy"])
                 st.dataframe(pd.DataFrame(rows), hide_index=True, use_container_width=True)
 
-            st.subheader("Wyniki")
-            preview = [c for c in [
-                "Claim Import ID", "Claim: Claim Number",
-                "DSV Country (Lookup)", "DSV Division (Lookup)",
-                "Claim Sub-Type", "Claimant Name",
-                "Claim amount EUR", "Total liability EUR",
-                "Assigned Name", "Claim Handler", "Team Name", "Assignment Reason",
-            ] if c in result_df.columns]
-            st.dataframe(result_df[preview] if preview else result_df,
-                         use_container_width=True, height=350)
-
-            st.subheader("Pobierz")
-            dc1, dc2 = st.columns(2)
+            st.dataframe(result_df, use_container_width=True, height=400)
             buf = io.BytesIO()
             result_df.to_excel(buf, index=False, engine="openpyxl")
-            fname = f"Rozdanie {res_team} {datetime.now().strftime('%d.%m.%Y')}.xlsx"
-            dc1.download_button("📥 Excel", buf.getvalue(), fname,
-                                "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
-                                use_container_width=True, type="primary")
-            dc2.download_button("📥 CSV",
-                                result_df.to_csv(index=False).encode("utf-8"),
-                                "claims_output.csv", "text/csv",
-                                use_container_width=True)
+            st.download_button("📥 Pobierz Wynik (Excel)", buf.getvalue(), "rozdanie_claims.xlsx", use_container_width=True, type="primary")
 
-    # ── RULES VIEWER ─────────────────────────────────────────────────────────
     with tab_rules:
         st.header(f"📋 Zasady — CHC {team}")
-        st.caption("Zasady są w plikach `config/` na GitHub. "
-                   "Aby je zmienić — wyślij nowy XLSX do administratora.")
-
-        if team == "Global":
-            # Fast Track info
-            st.subheader("⚡ Reguły kwotowe (wszystkie kraje)")
-            col_a, col_b = st.columns(2)
-            col_a.info(
-                f"**CHC Low Value**\n\n"
-                f"Kwota > 0 i < **{cfg['low_value_max']} EUR**\n\n"
-                f"Handler: *pusty*, team przypisany"
-            )
-            col_b.info(
-                f"**CHC Bucharest — Fast Track**\n\n"
-                f"Kwota **{cfg['fast_track_min']}–{cfg['fast_track_max']} EUR**\n\n"
-                f"Handler: *pusty*, team przypisany"
-            )
-            st.warning(
-                "**Wyjątki** (te typy szkód idą do standardowych reguł, ignorując kwotę): "
-                + ", ".join(cfg["fast_track_exclusions"])
-            )
-
-            # Special customers
-            st.subheader("⭐ Special Customers")
-            sc_rows = [{"Customer": sc["customer"],
-                        "Handlers (primary)": ", ".join(sc["handlers"]),
-                        "Alt handlers": ", ".join(sc.get("alt_handlers", []))}
-                       for sc in cfg["special_customers"]]
-            st.dataframe(pd.DataFrame(sc_rows), hide_index=True, use_container_width=True)
-
-            # XPress
-            st.subheader("📦 XPress")
-            st.info(f"Handlers: **{', '.join(cfg['xpress_handlers'])}**")
-
-        else:  # Nordic
-            st.subheader("⭐ VIP Customers")
-            vip_rows = [{"Customer": v["customer"],
-                         "Country": v.get("country") or "Wszystkie",
-                         "Min EUR": v.get("min_amount", ""),
-                         "Max EUR": "" if v.get("max_amount", 0) >= 9999999 else v.get("max_amount"),
-                         "Handlers": ", ".join(v.get("handlers", [])) or f"→ {v.get('output_team','')}",
-                         "Alt": ", ".join(v.get("alt_handlers", []))}
-                        for v in cfg["vip_customers"]]
-            st.dataframe(pd.DataFrame(vip_rows), hide_index=True, use_container_width=True)
-
-        # Standard rules
-        st.subheader("📋 Reguły standardowe")
-        rule_rows = []
-        for r in cfg["rules"]:
-            rule_rows.append({
-                "Opis":       r["description"],
-                "Kraje":      ", ".join(r.get("countries", [])) or "Wszystkie",
-                "Dywizje":    ", ".join(r.get("divisions", [])) or "Wszystkie",
-                "Sub-typy":   ", ".join(r.get("sub_types", [])) or "",
-                "Min EUR":    r.get("min_amount", ""),
-                "Max EUR":    r.get("max_amount", ""),
-                "Handlers":   ", ".join(r.get("handlers", [])),
-                "Alternative":   ", ".join(r.get("alt_handlers", [])),
-            })
-        st.dataframe(pd.DataFrame(rule_rows), hide_index=True,
-                     use_container_width=True, height=400)
-
-        # All handlers
-        st.subheader("👥 Wszyscy handlerzy")
-        h_rows = [{"Imię i nazwisko": h["name"],
-                   "Riskonnect ID":   h["rid"],
-                   "Team":            h["team"]}
-                  for h in handlers]
-        st.dataframe(pd.DataFrame(h_rows), hide_index=True, use_container_width=True)
-
+        st.dataframe(pd.DataFrame(cfg["rules"]), use_container_width=True)
 
 if __name__ == "__main__":
     main()
