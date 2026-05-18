@@ -112,12 +112,10 @@
         "A&S"
       ],
       "handlers": [
-        "Damian Chąchyra"
-      ],
-      "alt_handlers": [
         "Oliwia Hagowska-Marek",
         "Aleksandra Miszkurka"
-      ]
+      ],
+      "alt_handlers": []
     },
     {
       "description": "Belarus A&S",
@@ -158,11 +156,10 @@
         "Contract Logistics"
       ],
       "handlers": [
-        "Łukasz Twarowski"
-      ],
-      "alt_handlers": [
+        "Łukasz Twarowski",
         "Nikola Uziębło"
-      ]
+      ],
+      "alt_handlers": []
     },
     {
       "description": "Bosnia and Herzegovina A&S",
@@ -187,11 +184,10 @@
         "A&S"
       ],
       "handlers": [
-        "Oliwia Hagowska-Marek"
-      ],
-      "alt_handlers": [
+        "Oliwia Hagowska-Marek",
         "Aleksandra Miszkurka"
-      ]
+      ],
+      "alt_handlers": []
     },
     {
       "description": "Croatia A&S",
@@ -216,10 +212,10 @@
         "A&S"
       ],
       "handlers": [
-        "Damian Chąchyra"
+        "Agata Więckowska"
       ],
       "alt_handlers": [
-        "Agata Więckowska"
+        "Aleksandra Miszkurka"
       ]
     },
     {
@@ -231,12 +227,10 @@
         "A&S"
       ],
       "handlers": [
-        "Damian Chąchyra"
-      ],
-      "alt_handlers": [
         "Oliwia Hagowska-Marek",
         "Aleksandra Miszkurka"
-      ]
+      ],
+      "alt_handlers": []
     },
     {
       "description": "Estonia A&S",
@@ -262,11 +256,10 @@
         "A&S"
       ],
       "handlers": [
+        "Aleksandra Miszkurka",
         "Oliwia Hagowska-Marek"
       ],
-      "alt_handlers": [
-        "Aleksandra Miszkurka"
-      ]
+      "alt_handlers": []
     },
     {
       "description": "France A&S",
@@ -342,6 +335,20 @@
       "alt_handlers": []
     },
     {
+      "description": "Georgia A&S",
+      "countries": [
+        "Georgia"
+      ],
+      "divisions": [
+        "A&S"
+      ],
+      "handlers": [
+        "Oliwia Hagowska-Marek",
+        "Aleksandra Miszkurka"
+      ],
+      "alt_handlers": []
+    },
+    {
       "description": "Hungary A&S",
       "countries": [
         "Hungary"
@@ -367,9 +374,7 @@
       "handlers": [
         "Oliwia Hagowska-Marek"
       ],
-      "alt_handlers": [
-        "Aleksandra Miszkurka"
-      ]
+      "alt_handlers": []
     },
     {
       "description": "Ireland Road,CL",
@@ -463,6 +468,20 @@
       ]
     },
     {
+      "description": "Moldova A&S",
+      "countries": [
+        "Moldova"
+      ],
+      "divisions": [
+        "A&S"
+      ],
+      "handlers": [
+        "Oliwia Hagowska-Marek",
+        "Aleksandra Miszkurka"
+      ],
+      "alt_handlers": []
+    },
+    {
       "description": "Netherlands A&S",
       "countries": [
         "Netherlands"
@@ -487,11 +506,10 @@
         "Contract Logistics"
       ],
       "handlers": [
-        "Łukasz Twarowski"
-      ],
-      "alt_handlers": [
+        "Łukasz Twarowski",
         "Nikola Uziębło"
-      ]
+      ],
+      "alt_handlers": []
     },
     {
       "description": "Norway A&S",
@@ -562,11 +580,10 @@
         "A&S"
       ],
       "handlers": [
-        "Oliwia Hagowska-Marek"
-      ],
-      "alt_handlers": [
+        "Oliwia Hagowska-Marek",
         "Aleksandra Miszkurka"
-      ]
+      ],
+      "alt_handlers": []
     },
     {
       "description": "Serbia A&S",
@@ -664,11 +681,10 @@
         "A&S"
       ],
       "handlers": [
-        "Oliwia Hagowska-Marek"
-      ],
-      "alt_handlers": [
+        "Oliwia Hagowska-Marek",
         "Aleksandra Miszkurka"
-      ]
+      ],
+      "alt_handlers": []
     },
     {
       "description": "Switzerland A&S",
@@ -679,11 +695,10 @@
         "A&S"
       ],
       "handlers": [
-        "Oliwia Hagowska-Marek"
-      ],
-      "alt_handlers": [
+        "Oliwia Hagowska-Marek",
         "Aleksandra Miszkurka"
-      ]
+      ],
+      "alt_handlers": []
     },
     {
       "description": "Turkey Road,CL",
@@ -708,11 +723,10 @@
         "A&S"
       ],
       "handlers": [
-        "Oliwia Hagowska-Marek"
-      ],
-      "alt_handlers": [
+        "Oliwia Hagowska-Marek",
         "Aleksandra Miszkurka"
-      ]
+      ],
+      "alt_handlers": []
     },
     {
       "description": "UK Road",
