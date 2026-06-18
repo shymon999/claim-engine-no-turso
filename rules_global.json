@@ -91,701 +91,339 @@
   "rules": [
     {
       "description": "Andorra A&S",
-      "countries": [
-        "Andorra"
-      ],
-      "divisions": [
-        "A&S"
-      ],
-      "handlers": [
-        "Oliwia Hagowska-Marek",
-        "Aleksandra Miszkurka"
-      ],
-      "alt_handlers": []
+      "countries": ["Andorra"],
+      "divisions": ["A&S"],
+      "handlers": ["Oliwia Hagowska-Marek", "Aleksandra Miszkurka"],
+      "alt_handlers": ["Agata Więckowska"]
     },
     {
       "description": "Austria A&S",
-      "countries": [
-        "Austria"
-      ],
-      "divisions": [
-        "A&S"
-      ],
-      "handlers": [
-        "Oliwia Hagowska-Marek",
-        "Aleksandra Miszkurka"
-      ],
-      "alt_handlers": []
+      "countries": ["Austria"],
+      "divisions": ["A&S"],
+      "handlers": ["Oliwia Hagowska-Marek", "Aleksandra Miszkurka"],
+      "alt_handlers": ["Agata Więckowska"]
     },
     {
       "description": "Belarus A&S",
-      "countries": [
-        "Belarus"
-      ],
-      "divisions": [
-        "A&S"
-      ],
-      "handlers": [
-        "Oliwia Hagowska-Marek",
-        "Aleksandra Miszkurka"
-      ],
-      "alt_handlers": []
+      "countries": ["Belarus"],
+      "divisions": ["A&S"],
+      "handlers": ["Oliwia Hagowska-Marek", "Aleksandra Miszkurka"],
+      "alt_handlers": ["Agata Więckowska"]
     },
     {
       "description": "Belgium A&S",
-      "countries": [
-        "Belgium"
-      ],
-      "divisions": [
-        "A&S"
-      ],
-      "handlers": [
-        "Justyna Klepczyńska-Buczek"
-      ],
-      "alt_handlers": [
-        "Oliwia Hagowska-Marek"
-      ]
+      "countries": ["Belgium"],
+      "divisions": ["A&S"],
+      "handlers": ["Aleksandra Miszkurka"],
+      "alt_handlers": ["Oliwia Hagowska-Marek"]
     },
     {
       "description": "Belgium Road,CL",
-      "countries": [
-        "Belgium"
-      ],
-      "divisions": [
-        "Road",
-        "Contract Logistics"
-      ],
-      "handlers": [
-        "Łukasz Twarowski",
-        "Nikola Uziębło"
-      ],
+      "countries": ["Belgium"],
+      "divisions": ["Road", "Contract Logistics"],
+      "handlers": ["Łukasz Twarowski", "Nikola Uziębło"],
       "alt_handlers": []
     },
     {
       "description": "Bosnia and Herzegovina A&S",
-      "countries": [
-        "Bosnia and Herzegovina"
-      ],
-      "divisions": [
-        "A&S"
-      ],
-      "handlers": [
-        "Oliwia Hagowska-Marek",
-        "Aleksandra Miszkurka"
-      ],
-      "alt_handlers": []
+      "countries": ["Bosnia and Herzegovina"],
+      "divisions": ["A&S"],
+      "handlers": ["Oliwia Hagowska-Marek", "Aleksandra Miszkurka"],
+      "alt_handlers": ["Agata Więckowska"]
     },
     {
       "description": "Bulgaria A&S",
-      "countries": [
-        "Bulgaria"
-      ],
-      "divisions": [
-        "A&S"
-      ],
-      "handlers": [
-        "Oliwia Hagowska-Marek",
-        "Aleksandra Miszkurka"
-      ],
-      "alt_handlers": []
+      "countries": ["Bulgaria"],
+      "divisions": ["A&S"],
+      "handlers": ["Oliwia Hagowska-Marek", "Aleksandra Miszkurka"],
+      "alt_handlers": ["Agata Więckowska"]
     },
     {
       "description": "Croatia A&S",
-      "countries": [
-        "Croatia"
-      ],
-      "divisions": [
-        "A&S"
-      ],
-      "handlers": [
-        "Oliwia Hagowska-Marek",
-        "Aleksandra Miszkurka"
-      ],
-      "alt_handlers": []
+      "countries": ["Croatia"],
+      "divisions": ["A&S"],
+      "handlers": ["Oliwia Hagowska-Marek", "Aleksandra Miszkurka"],
+      "alt_handlers": ["Agata Więckowska"]
     },
     {
       "description": "Czech A&S",
-      "countries": [
-        "Czech"
-      ],
-      "divisions": [
-        "A&S"
-      ],
-      "handlers": [
-        "Agata Więckowska"
-      ],
-      "alt_handlers": [
-        "Aleksandra Miszkurka"
-      ]
+      "countries": ["Czech"],
+      "divisions": ["A&S"],
+      "handlers": ["Agata Więckowska"],
+      "alt_handlers": ["Aleksandra Miszkurka"]
     },
     {
       "description": "Denmark A&S",
-      "countries": [
-        "Denmark"
-      ],
-      "divisions": [
-        "A&S"
-      ],
-      "handlers": [
-        "Oliwia Hagowska-Marek",
-        "Aleksandra Miszkurka"
-      ],
-      "alt_handlers": []
+      "countries": ["Denmark"],
+      "divisions": ["A&S"],
+      "handlers": ["Oliwia Hagowska-Marek", "Aleksandra Miszkurka"],
+      "alt_handlers": ["Agata Więckowska"]
     },
     {
       "description": "Estonia A&S",
-      "countries": [
-        "Estonia"
-      ],
-      "divisions": [
-        "A&S"
-      ],
-      "handlers": [
-        "Agata Więckowska"
-      ],
-      "alt_handlers": [
-        "Oliwia Hagowska-Marek"
-      ]
+      "countries": ["Estonia"],
+      "divisions": ["A&S"],
+      "handlers": ["Agata Więckowska"],
+      "alt_handlers": ["Oliwia Hagowska-Marek"]
     },
     {
       "description": "Finland A&S",
-      "countries": [
-        "Finland"
-      ],
-      "divisions": [
-        "A&S"
-      ],
-      "handlers": [
-        "Aleksandra Miszkurka",
-        "Oliwia Hagowska-Marek"
-      ],
-      "alt_handlers": []
+      "countries": ["Finland"],
+      "divisions": ["A&S"],
+      "handlers": ["Aleksandra Miszkurka", "Oliwia Hagowska-Marek"],
+      "alt_handlers": ["Agata Więckowska"]
     },
     {
       "description": "France A&S",
-      "countries": [
-        "France"
-      ],
-      "divisions": [
-        "A&S"
-      ],
-      "handlers": [
-        "Justyna Klepczyńska-Buczek"
-      ],
-      "alt_handlers": [
-        "Oliwia Hagowska-Marek"
-      ]
+      "countries": ["France"],
+      "divisions": ["A&S"],
+      "handlers": ["Aleksandra Miszkurka"],
+      "alt_handlers": ["Oliwia Hagowska-Marek"]
     },
     {
       "description": "France Contract Logistics",
-      "countries": [
-        "France"
-      ],
-      "divisions": [
-        "Contract Logistics"
-      ],
-      "handlers": [
-        "Katarzyna Miszczak"
-      ],
-      "alt_handlers": [
-        "Justyna Klepczyńska-Buczek"
-      ]
+      "countries": ["France"],
+      "divisions": ["Contract Logistics"],
+      "handlers": ["Katarzyna Miszczak"],
+      "alt_handlers": ["Justyna Klepczyńska-Buczek"]
     },
     {
       "description": "France Road",
-      "countries": [
-        "France"
-      ],
-      "divisions": [
-        "Road"
-      ],
-      "handlers": [
-        "Antoni Jełowicki",
-        "Katarzyna Miszczak",
-        "Justyna Klepczyńska-Buczek"
-      ],
+      "countries": ["France"],
+      "divisions": ["Road"],
+      "handlers": ["Sofiia Dieriuha", "Antoni Jełowicki", "Katarzyna Miszczak", "Justyna Klepczyńska-Buczek"],
       "alt_handlers": []
     },
     {
       "description": "Germany A&S",
-      "countries": [
-        "Germany"
-      ],
-      "divisions": [
-        "A&S"
-      ],
-      "handlers": [
-        "Oliwia Hagowska-Marek",
-        "Agata Więckowska"
-      ],
-      "alt_handlers": []
+      "countries": ["Germany"],
+      "divisions": ["A&S"],
+      "handlers": ["Oliwia Hagowska-Marek", "Agata Więckowska"],
+      "alt_handlers": ["Aleksandra Miszkurka"]
     },
     {
       "description": "Greece A&S",
-      "countries": [
-        "Greece"
-      ],
-      "divisions": [
-        "A&S"
-      ],
-      "handlers": [
-        "Oliwia Hagowska-Marek",
-        "Agata Więckowska"
-      ],
-      "alt_handlers": []
+      "countries": ["Greece"],
+      "divisions": ["A&S"],
+      "handlers": ["Oliwia Hagowska-Marek", "Agata Więckowska"],
+      "alt_handlers": ["Aleksandra Miszkurka"]
     },
     {
       "description": "Georgia A&S",
-      "countries": [
-        "Georgia"
-      ],
-      "divisions": [
-        "A&S"
-      ],
-      "handlers": [
-        "Oliwia Hagowska-Marek",
-        "Aleksandra Miszkurka"
-      ],
-      "alt_handlers": []
+      "countries": ["Georgia"],
+      "divisions": ["A&S"],
+      "handlers": ["Oliwia Hagowska-Marek", "Aleksandra Miszkurka"],
+      "alt_handlers": ["Agata Więckowska"]
     },
     {
       "description": "Hungary A&S",
-      "countries": [
-        "Hungary"
-      ],
-      "divisions": [
-        "A&S"
-      ],
-      "handlers": [
-        "Oliwia Hagowska-Marek"
-      ],
-      "alt_handlers": [
-        "Agata Więckowska"
-      ]
+      "countries": ["Hungary"],
+      "divisions": ["A&S"],
+      "handlers": ["Oliwia Hagowska-Marek"],
+      "alt_handlers": ["Agata Więckowska"]
     },
     {
       "description": "Ireland A&S",
-      "countries": [
-        "Ireland"
-      ],
-      "divisions": [
-        "A&S"
-      ],
-      "handlers": [
-        "Oliwia Hagowska-Marek"
-      ],
-      "alt_handlers": []
+      "countries": ["Ireland"],
+      "divisions": ["A&S"],
+      "handlers": ["Oliwia Hagowska-Marek"],
+      "alt_handlers": ["Aleksandra Miszkurka"]
     },
     {
       "description": "Ireland Road,CL",
-      "countries": [
-        "Ireland"
-      ],
-      "divisions": [
-        "Road",
-        "Contract Logistics"
-      ],
-      "handlers": [
-        "Łukasz Twarowski"
-      ],
-      "alt_handlers": [
-        "Agata Więckowska"
-      ]
+      "countries": ["Ireland"],
+      "divisions": ["Road", "Contract Logistics"],
+      "handlers": ["Łukasz Twarowski"],
+      "alt_handlers": ["Agata Więckowska"]
     },
     {
       "description": "Italy A&S",
-      "countries": [
-        "Italy"
-      ],
-      "divisions": [
-        "A&S"
-      ],
-      "handlers": [
-        "Oliwia Hagowska-Marek"
-      ],
-      "alt_handlers": [
-        "Justyna Klepczyńska-Buczek"
-      ]
+      "countries": ["Italy"],
+      "divisions": ["A&S"],
+      "handlers": ["Oliwia Hagowska-Marek"],
+      "alt_handlers": ["Aleksandra Miszkurka"]
     },
     {
-      "description": "Italy Road",
-      "countries": [
-        "Italy"
-      ],
-      "divisions": [
-        "Road"
-      ],
-      "handlers": [
-        "Anna Temperato"
-      ],
-      "alt_handlers": [
-        "Hubert Zych"
-      ]
+      "description": "Italy Road,CL",
+      "countries": ["Italy"],
+      "divisions": ["Road", "Contract Logistics"],
+      "handlers": ["Anna Temperato"],
+      "alt_handlers": ["Hubert Zych"]
     },
     {
       "description": "Latvia A&S",
-      "countries": [
-        "Latvia"
-      ],
-      "divisions": [
-        "A&S"
-      ],
-      "handlers": [
-        "Agata Więckowska"
-      ],
-      "alt_handlers": [
-        "Oliwia Hagowska-Marek"
-      ]
+      "countries": ["Latvia"],
+      "divisions": ["A&S"],
+      "handlers": ["Agata Więckowska"],
+      "alt_handlers": ["Oliwia Hagowska-Marek"]
     },
     {
       "description": "Lithuania A&S",
-      "countries": [
-        "Lithuania"
-      ],
-      "divisions": [
-        "A&S"
-      ],
-      "handlers": [
-        "Agata Więckowska"
-      ],
-      "alt_handlers": [
-        "Oliwia Hagowska-Marek"
-      ]
+      "countries": ["Lithuania"],
+      "divisions": ["A&S"],
+      "handlers": ["Agata Więckowska"],
+      "alt_handlers": ["Oliwia Hagowska-Marek"]
     },
     {
       "description": "Luxembourg A&S",
-      "countries": [
-        "Luxembourg"
-      ],
-      "divisions": [
-        "A&S"
-      ],
-      "handlers": [
-        "Oliwia Hagowska-Marek"
-      ],
-      "alt_handlers": [
-        "Justyna Klepczyńska-Buczek"
-      ]
+      "countries": ["Luxembourg"],
+      "divisions": ["A&S"],
+      "handlers": ["Oliwia Hagowska-Marek"],
+      "alt_handlers": ["Aleksandra Miszkurka"]
     },
     {
       "description": "Moldova A&S",
-      "countries": [
-        "Moldova"
-      ],
-      "divisions": [
-        "A&S"
-      ],
-      "handlers": [
-        "Oliwia Hagowska-Marek",
-        "Aleksandra Miszkurka"
-      ],
-      "alt_handlers": []
+      "countries": ["Moldova"],
+      "divisions": ["A&S"],
+      "handlers": ["Oliwia Hagowska-Marek", "Aleksandra Miszkurka"],
+      "alt_handlers": ["Agata Więckowska"]
     },
     {
       "description": "Netherlands A&S",
-      "countries": [
-        "Netherlands"
-      ],
-      "divisions": [
-        "A&S"
-      ],
-      "handlers": [
-        "Justyna Klepczyńska-Buczek"
-      ],
-      "alt_handlers": [
-        "Oliwia Hagowska-Marek"
-      ]
+      "countries": ["Netherlands"],
+      "divisions": ["A&S"],
+      "handlers": ["Aleksandra Miszkurka"],
+      "alt_handlers": ["Oliwia Hagowska-Marek"]
     },
     {
       "description": "Netherlands Road,CL",
-      "countries": [
-        "Netherlands"
-      ],
-      "divisions": [
-        "Road",
-        "Contract Logistics"
-      ],
-      "handlers": [
-        "Łukasz Twarowski",
-        "Nikola Uziębło"
-      ],
+      "countries": ["Netherlands"],
+      "divisions": ["Road", "Contract Logistics"],
+      "handlers": ["Anna Temperato", "Łukasz Twarowski", "Nikola Uziębło"],
       "alt_handlers": []
     },
     {
       "description": "Norway A&S",
-      "countries": [
-        "Norway"
-      ],
-      "divisions": [
-        "A&S"
-      ],
-      "handlers": [
-        "Oliwia Hagowska-Marek"
-      ],
-      "alt_handlers": [
-        "Aleksandra Miszkurka"
-      ]
+      "countries": ["Norway"],
+      "divisions": ["A&S"],
+      "handlers": ["Oliwia Hagowska-Marek"],
+      "alt_handlers": ["Aleksandra Miszkurka"]
     },
     {
       "description": "Poland A&S",
-      "countries": [
-        "Poland"
-      ],
-      "divisions": [
-        "A&S"
-      ],
-      "handlers": [
-        "Agata Więckowska"
-      ],
-      "alt_handlers": [
-        "Justyna Klepczyńska-Buczek"
-      ]
+      "countries": ["Poland"],
+      "divisions": ["A&S"],
+      "handlers": ["Agata Więckowska"],
+      "alt_handlers": ["Aleksandra Miszkurka"]
     },
     {
       "description": "Portugal Road",
-      "countries": [
-        "Portugal"
-      ],
-      "divisions": [
-        "Road"
-      ],
-      "handlers": [
-        "Katarzyna Miszczak"
-      ],
-      "alt_handlers": [
-        "Justyna Klepczyńska-Buczek"
-      ]
+      "countries": ["Portugal"],
+      "divisions": ["Road"],
+      "handlers": ["Katarzyna Miszczak"],
+      "alt_handlers": ["Justyna Klepczyńska-Buczek"]
     },
     {
       "description": "Portugal A&S",
-      "countries": [
-        "Portugal"
-      ],
-      "divisions": [
-        "A&S"
-      ],
-      "handlers": [
-        "Oliwia Hagowska-Marek"
-      ],
-      "alt_handlers": [
-        "Justyna Klepczyńska-Buczek"
-      ]
+      "countries": ["Portugal"],
+      "divisions": ["A&S"],
+      "handlers": ["Oliwia Hagowska-Marek"],
+      "alt_handlers": ["Aleksandra Miszkurka"]
     },
     {
       "description": "Romania A&S",
-      "countries": [
-        "Romania"
-      ],
-      "divisions": [
-        "A&S"
-      ],
-      "handlers": [
-        "Oliwia Hagowska-Marek",
-        "Aleksandra Miszkurka"
-      ],
-      "alt_handlers": []
+      "countries": ["Romania"],
+      "divisions": ["A&S"],
+      "handlers": ["Oliwia Hagowska-Marek", "Aleksandra Miszkurka"],
+      "alt_handlers": ["Agata Więckowska"]
     },
     {
       "description": "Serbia A&S",
-      "countries": [
-        "Serbia"
-      ],
-      "divisions": [
-        "A&S"
-      ],
-      "handlers": [
-        "Oliwia Hagowska-Marek",
-        "Aleksandra Miszkurka"
-      ],
-      "alt_handlers": []
+      "countries": ["Serbia"],
+      "divisions": ["A&S"],
+      "handlers": ["Oliwia Hagowska-Marek", "Aleksandra Miszkurka"],
+      "alt_handlers": ["Agata Więckowska"]
     },
     {
       "description": "Slovakia A&S",
-      "countries": [
-        "Slovakia"
-      ],
-      "divisions": [
-        "A&S"
-      ],
-      "handlers": [
-        "Oliwia Hagowska-Marek",
-        "Aleksandra Miszkurka"
-      ],
-      "alt_handlers": []
+      "countries": ["Slovakia"],
+      "divisions": ["A&S"],
+      "handlers": ["Oliwia Hagowska-Marek", "Aleksandra Miszkurka"],
+      "alt_handlers": ["Agata Więckowska"]
     },
     {
       "description": "Slovenia A&S",
-      "countries": [
-        "Slovenia"
-      ],
-      "divisions": [
-        "A&S"
-      ],
-      "handlers": [
-        "Oliwia Hagowska-Marek",
-        "Aleksandra Miszkurka"
-      ],
-      "alt_handlers": []
+      "countries": ["Slovenia"],
+      "divisions": ["A&S"],
+      "handlers": ["Oliwia Hagowska-Marek", "Aleksandra Miszkurka"],
+      "alt_handlers": ["Agata Więckowska"]
     },
     {
       "description": "Spain Road",
-      "countries": [
-        "Spain"
-      ],
-      "divisions": [
-        "Road"
-      ],
-      "handlers": [
-        "Katarzyna Miszczak",
-        "Justyna Klepczyńska-Buczek"
-      ],
+      "countries": ["Spain"],
+      "divisions": ["Road"],
+      "handlers": ["Antoni Jełowicki", "Gabriela Sobczak", "Katarzyna Miszczak", "Justyna Klepczyńska-Buczek"],
       "alt_handlers": []
     },
     {
       "description": "Spain Contract Logistics",
-      "countries": [
-        "Spain"
-      ],
-      "divisions": [
-        "Contract Logistics"
-      ],
-      "handlers": [
-        "Katarzyna Miszczak"
-      ],
-      "alt_handlers": [
-        "Justyna Klepczyńska-Buczek"
-      ]
+      "countries": ["Spain"],
+      "divisions": ["Contract Logistics"],
+      "handlers": ["Katarzyna Miszczak"],
+      "alt_handlers": ["Justyna Klepczyńska-Buczek"]
     },
     {
       "description": "Spain A&S",
-      "countries": [
-        "Spain"
-      ],
-      "divisions": [
-        "A&S"
-      ],
-      "handlers": [
-        "Oliwia Hagowska-Marek",
-        "Justyna Klepczyńska-Buczek"
-      ],
-      "alt_handlers": [
-        "Katarzyna Miszczak"
-      ]
+      "countries": ["Spain"],
+      "divisions": ["A&S"],
+      "handlers": ["Oliwia Hagowska-Marek", "Aleksandra Miszkurka"],
+      "alt_handlers": ["Agata Więckowska"]
     },
     {
       "description": "Sweden A&S",
-      "countries": [
-        "Sweden"
-      ],
-      "divisions": [
-        "A&S"
-      ],
-      "handlers": [
-        "Oliwia Hagowska-Marek",
-        "Aleksandra Miszkurka"
-      ],
-      "alt_handlers": []
+      "countries": ["Sweden"],
+      "divisions": ["A&S"],
+      "handlers": ["Oliwia Hagowska-Marek", "Aleksandra Miszkurka"],
+      "alt_handlers": ["Agata Więckowska"]
     },
     {
       "description": "Switzerland A&S",
-      "countries": [
-        "Switzerland"
-      ],
-      "divisions": [
-        "A&S"
-      ],
-      "handlers": [
-        "Oliwia Hagowska-Marek",
-        "Aleksandra Miszkurka"
-      ],
-      "alt_handlers": []
+      "countries": ["Switzerland"],
+      "divisions": ["A&S"],
+      "handlers": ["Oliwia Hagowska-Marek", "Aleksandra Miszkurka"],
+      "alt_handlers": ["Agata Więckowska"]
     },
     {
       "description": "Turkey Road,CL",
-      "countries": [
-        "Turkey"
-      ],
-      "divisions": [
-        "Road",
-        "Contract Logistics"
-      ],
-      "handlers": [
-        "Agata Więckowska"
-      ],
+      "countries": ["Turkey"],
+      "divisions": ["Road", "Contract Logistics"],
+      "handlers": ["Agata Więckowska"],
       "alt_handlers": []
     },
     {
       "description": "Turkey A&S",
-      "countries": [
-        "Turkey"
-      ],
-      "divisions": [
-        "A&S"
-      ],
-      "handlers": [
-        "Oliwia Hagowska-Marek",
-        "Aleksandra Miszkurka"
-      ],
-      "alt_handlers": []
+      "countries": ["Turkey"],
+      "divisions": ["A&S"],
+      "handlers": ["Oliwia Hagowska-Marek", "Aleksandra Miszkurka"],
+      "alt_handlers": ["Agata Więckowska"]
     },
     {
       "description": "UK Road",
-      "countries": [
-        "UK",
-        "United Kingdom"
-      ],
-      "divisions": [
-        "Road"
-      ],
-      "handlers": [
-        "Agata Więckowska",
-        "Łukasz Twarowski"
-      ],
+      "countries": ["UK", "United Kingdom"],
+      "divisions": ["Road"],
+      "handlers": ["Agata Więckowska", "Łukasz Twarowski"],
       "alt_handlers": []
     },
     {
       "description": "UK Contract Logistics",
-      "countries": [
-        "UK",
-        "United Kingdom"
-      ],
-      "divisions": [
-        "Contract Logistics"
-      ],
-      "handlers": [
-        "Agata Więckowska",
-        "Łukasz Twarowski"
-      ],
+      "countries": ["UK", "United Kingdom"],
+      "divisions": ["Contract Logistics"],
+      "handlers": ["Agata Więckowska", "Łukasz Twarowski"],
       "alt_handlers": []
     },
     {
       "description": "UK A&S",
-      "countries": [
-        "UK",
-        "United Kingdom"
-      ],
-      "divisions": [
-        "A&S"
-      ],
-      "handlers": [
-        "Oliwia Hagowska-Marek",
-        "Aleksandra Miszkurka"
-      ],
-      "alt_handlers": []
+      "countries": ["UK", "United Kingdom"],
+      "divisions": ["A&S"],
+      "handlers": ["Oliwia Hagowska-Marek", "Aleksandra Miszkurka"],
+      "alt_handlers": ["Agata Więckowska"]
     },
     {
       "description": "Ukraine A&S",
-      "countries": [
-        "Ukraine"
-      ],
-      "divisions": [
-        "A&S"
-      ],
-      "handlers": [
-        "Oliwia Hagowska-Marek",
-        "Aleksandra Miszkurka"
-      ],
-      "alt_handlers": []
+      "countries": ["Ukraine"],
+      "divisions": ["A&S"],
+      "handlers": ["Oliwia Hagowska-Marek", "Aleksandra Miszkurka"],
+      "alt_handlers": ["Agata Więckowska"]
     }
   ]
 }
